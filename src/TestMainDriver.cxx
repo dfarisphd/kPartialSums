@@ -277,7 +277,44 @@ main( int argc , char* argv[] ) {
                console->info("BCI-VAL = [[ {} ]]  -->>  Array Index Values: [[ {} ]]",bciVal,aioss.str());
          }
      }
+//==+====1====+====2====+====3====+====4====+====5====+====6====+====7====+====8
+
+     numMatches  =  0u;
+     retVals.clear();
+     uint64_t vec2[ 4 ] = { 1ul , 2ul , 3ul , 4ul };
+     uint64_t targetSum2 = (uint64_t)6u;
+
+     // compact way to print vector to stringstream
+     std::ostringstream oss2; oss2 << "[[ ";
+     for( auto idx : vec2 ) { oss2 << idx << " , "; } oss2 << "]]";
+     console->debug("*** EXAMPLE 2  :: [[ 1 , 2 , 3 , 4 ]]: {}" , oss2.str() );
+
      //-------------------------------------------------------------------------
+     // CALL K-PARTIAL-SUMS ROUTINE
+     console->info( "CALLING \"kPartialSums\" ROUTINE ..." );
+     numMatches  =  kPartialSums( vec2 , targetSum2 , retVals );
+     console->info( "NUM-MATCHES -->> [[ {} ]]" , numMatches );
+     //-------------------------------------------------------------------------
+
+     std::ostringstream rvoss2;
+     for( auto idx : retVals ) { rvoss2 << idx << " , "; }
+     console->info("*** EXAMPLE 2  :: RET-VALS = [[ {} ]]" , rvoss2.str() );
+
+     //-------------------------------------------------------------------------
+     // PRINT OUT & DEBUG THE BCI-Coded Index Values ...
+     console->debug("Printing out BCI Coded Index Values: {} Solutions ...",numMatches);
+     if( numMatches ) {
+         for( auto bciVal : retVals ) {
+           std::vector<size_t> arrayIndexValues(0);
+           size_t numIndices = 0;
+           numIndices = decodeBCItoIndexValues ( bciVal , arrayIndexValues );
+               std::ostringstream aioss;
+               for( auto aiv : arrayIndexValues ) { aioss << aiv << " , "; }
+               console->info("BCI-VAL = [[ {} ]]  -->>  Array Index Values: [[ {} ]]",bciVal,aioss.str());
+         }
+     }
+
+//==+====1====+====2====+====3====+====4====+====5====+====6====+====7====+====8
 
      console->info("*** [[ K-PARTIAL-SUMS (TestMainDriver.cxx) ]] *** DONE");
    } catch (const spd::spdlog_ex& ex) {

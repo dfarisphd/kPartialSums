@@ -12,7 +12,7 @@
 
 ## GOOGLE TEST ARTIFACTS//Executables
 *_unittest
-*Driver
+**/Test*Driver
 
 # Prerequisites
 *.d

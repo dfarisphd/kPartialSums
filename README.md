@@ -24,7 +24,32 @@ Therefore, we can perform the summation of the candidate sequence in any order
 as they are all the same (provided again that some arbitrary object types
 supporting operator+ implement addition that agrees with  
 
-## Basic Breakfast Serial Algorithm
+## SOLUTIONS:
+
+```
+## EXAMPLE 1:
+[2017-08-29 08:20:22.464] [console1] [info] *** INPUT: [[ 5 , 5 , 15 , 10 ]]
+[2017-08-29 08:20:22.464] [console1] [info] ***    targetSum: [[ 15 ]]
+[2017-08-29 08:20:22.464] [console1] [info] ***    maxNum permutations (!): [[ 16 ]]
+
+these solutions to Example 1 (expressed below) are in BCI: { 4 , 9 , 10 }
+are in fact BCI Integers: Binary Coded Indices ...
+Express each number in binary (Right/LSB-to-Left/MSB) and the "1/set" bits
+will align with the ZERO-Based Indices (also going from Right-to-Left).
+One must be very very careful with INDEX RANGE and RHS/LHS.
+
+[2017-08-29 08:20:22.464] [console1] [info] *** [[ K-PARTIAL-SUMS ( kPartialSums() ) ]] ***  CORE ALGORITHM DONE
+[2017-08-29 08:20:22.464] [console1] [info] ***    NUMBER OF MATCHES (targetSum matched in InputArray): [[ 3 ]]
+[2017-08-29 08:20:22.464] [console1] [info] ***    ALL MATCHES: [[ 4 , 9 , 10 ]]
+[2017-08-29 08:20:22.464] [console1] [info] *** [[ K-PARTIAL-SUMS ( kPartialSums() ) ]] ***  CORE ALGORITHM DONE
+
+SOLUTIONS:
+[2017-08-29 08:20:22.464] [console] [info] BCI-VAL = [[  4 ]]  -->>  Array Index Values: [[ 2 ]]
+[2017-08-29 08:20:22.465] [console] [info] BCI-VAL = [[  9 ]]  -->>  Array Index Values: [[ 0 , 3 ]]
+[2017-08-29 08:20:22.465] [console] [info] BCI-VAL = [[ 10 ]]  -->>  Array Index Values: [[ 1 , 3 ]]
+```
+
+### Basic Breakfast Serial Algorithm
 
 * The pseudo-code is pretty straightforward as the basic algorithm
 is conceptually simple: Hit all permutations, sum them up, and compare.
