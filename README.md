@@ -147,6 +147,7 @@ Fairly straightforward: Simply track down the true/1 bits in the BCI value
 careful book-keeping and data structures to get it right.  But not difficult.
 
 ```
+<span style="color: #f2cf4a; font-family: Georgia; font-size: 2em;">
 size_t
 decodeBCItoIndexValues (
    uint64_t BCIval ,
@@ -196,4 +197,5 @@ decodeBCItoIndexValues (
    console->info("*** [[ K-PARTIAL-SUMS (decodeBCItoIndexValues) ]] *** DONE");
    return( numBits );
 }
+</span>
 ```
