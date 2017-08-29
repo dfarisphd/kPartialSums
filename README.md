@@ -112,21 +112,11 @@ careful book-keeping and data structures to get it right.  But not difficult.
 
 ```
 size_t
-decodeBCItoIndexValues ( uint64_t BCIval , std::vector<size_t>& indexVals )
+decodeBCItoIndexValues (
+   uint64_t BCIval ,
+   std::vector<size_t>& indexVals
+)
 {
-
-   // SPDLOG Configuration within this method
-   try {
-     int log_console_num = console_count++;
-     ostringstream ss;
-     ss << "console" << log_console_num;
-     string str = ss.str();
-     auto console = spd::stdout_color_mt( str );
-     console->set_level(spd::level::info);
-     console->info("*** [[ K-PARTIAL-SUMS (decodeBCItoIndexValues) ]] ***");
-     console->info("*** bciVal: [[ {} ]]",BCIval);
-     console->debug("    remember: this is a BINARY CODED INDEX INTEGER");
-     console->debug("    (integer value codes for permutation indices in array)");
 
      size_t numBits = 0;
      indexVals.clear();
@@ -152,7 +142,6 @@ decodeBCItoIndexValues ( uint64_t BCIval , std::vector<size_t>& indexVals )
        bci_val_bitset >>= 1;
        ++cbit;
      }
-     console->debug("*** bitset PUSHING VALUE   = [[ {} ]]", cbit );
      indexVals.push_back( cbit );
      ++numBits;
 
@@ -170,11 +159,5 @@ decodeBCItoIndexValues ( uint64_t BCIval , std::vector<size_t>& indexVals )
    console->info("***    ARRAY INDICES FOUND = [[ {} ]]", oss.str() );
    console->info("*** [[ K-PARTIAL-SUMS (decodeBCItoIndexValues) ]] *** DONE");
    return( numBits );
-
-   } catch (const spd::spdlog_ex& ex) {
-       std::cout << "*** FATAL( decodeBCItoIndexValues ): SPDLOG Log init failed: "
-                 << ex.what() << std::endl;
-     return(0);
-   }
 }
 ```
