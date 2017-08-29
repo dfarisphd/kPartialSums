@@ -10,6 +10,8 @@
 .DS_Store
 .Trash
 
+*.zip
+
 ## GOOGLE TEST ARTIFACTS//Executables
 *_unittest
 **/Test*Driver
