@@ -320,8 +320,10 @@ main( int argc , char* argv[] ) {
 
      numMatches  =  0u;
      retVals.clear();
-     uint64_t vec3[ 32 ] = {1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul,30ul,31ul,32ul};
-     uint64_t targetSum3 = (uint64_t)255u;
+     uint64_t vec3[ 36 ] = {1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,
+17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul,30ul,31ul,32ul,
+33ul,34ul,35ul,36ul};
+     uint64_t targetSum3 = (uint64_t)355u;
 
      // compact way to print vector to stringstream
      std::ostringstream oss3; oss3 << "[[ ";
@@ -335,12 +337,15 @@ main( int argc , char* argv[] ) {
      console->info( "NUM-MATCHES -->> [[ {} ]]" , numMatches );
      //-------------------------------------------------------------------------
 
+/*
      std::ostringstream rvoss3;
      for( auto idx : retVals ) { rvoss3 << idx << " , "; }
      console->debug("*** EXAMPLE 3  :: RET-VALS = [[ {} ]]" , rvoss3.str() );
+*/
 
      //-------------------------------------------------------------------------
      // PRINT OUT & DEBUG THE BCI-Coded Index Values ...
+/*
      console->debug("Printing out BCI Coded Index Values: {} Solutions ...",numMatches);
      if( numMatches ) {
          for( auto bciVal : retVals ) {
@@ -352,6 +357,7 @@ main( int argc , char* argv[] ) {
                console->debug("BCI-VAL = [[ {} ]]  -->>  Array Index Values: [[ {} ]]",bciVal,aioss.str());
          }
      }
+*/
 
 //==+====1====+====2====+====3====+====4====+====5====+====6====+====7====+====8
 
