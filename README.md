@@ -110,7 +110,7 @@ Fairly straightforward: Simply track down the true/1 bits in the BCI value
 (with LSB/0-Based Index and MSB/N-1 Based Index).  It requires very very
 careful book-keeping and data structures to get it right.  But not difficult.
 
-‘’’
+```
 size_t
 decodeBCItoIndexValues ( uint64_t BCIval , std::vector<size_t>& indexVals )
 {
@@ -177,4 +177,4 @@ decodeBCItoIndexValues ( uint64_t BCIval , std::vector<size_t>& indexVals )
      return(0);
    }
 }
-‘’’
+```
