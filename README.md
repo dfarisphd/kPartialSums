@@ -24,9 +24,21 @@ Therefore, we can perform the summation of the candidate sequence in any order
 as they are all the same (provided again that some arbitrary object types
 supporting operator+ implement addition that agrees with  
 
-## Basic Algorithm (No Scalability!)
+## Basic Breakfast Serial Algorithm
 
-* C++11 Or Bust
+* The pseudo-code is pretty straightforward as the basic algorithm
+is conceptually simple: Hit all permutations, sum them up, and compare.
+	- The conceptual and coding work for the Basic Algorithm
+	becomes simply book-keeping each permutation.
+	- Book-Keeping permutations is very easy: It is basically the
+	same as *COUNTING in BINARY* - and so we can COUNT is decimal
+	(if we cover the same range [0,2**N] give or take +/-1).
+	- Thats a big big big range for large N ...
+	- For example: For N = 64 (a very reasonable even smallish array)
+	the number of permutations is: 9 QUINTILLION:
+	- 9.2 quintillion to be exact ...
+	- 9,223,372,036,xxx,xxx,xxx
+* I coded the Basic Algorithm in C++11.  Why?
 * Templatized: Any Appropriate Type Works for T and S
 * Templatized (Part Deux): size_t N (not a formal parameter but a template parameter) for arbitrary size array.
 * One downside to Proper C++: We tend not to allocate in methods and functions.
@@ -66,3 +78,78 @@ kPartialSums (
    return( retNumVals );
 }
 ```
+
+### Decode “Binary Coded Integer” into Array Indices
+
+Fairly straightforward: Simply track down the true/1 bits in the BCI value
+(with LSB/0-Based Index and MSB/N-1 Based Index).  It requires very very
+careful book-keeping and data structures to get it right.  But not difficult.
+
+‘’’
+size_t
+decodeBCItoIndexValues ( uint64_t BCIval , std::vector<size_t>& indexVals )
+{
+
+   // SPDLOG Configuration within this method
+   try {
+     int log_console_num = console_count++;
+     ostringstream ss;
+     ss << "console" << log_console_num;
+     string str = ss.str();
+     auto console = spd::stdout_color_mt( str );
+     console->set_level(spd::level::info);
+     console->info("*** [[ K-PARTIAL-SUMS (decodeBCItoIndexValues) ]] ***");
+     console->info("*** bciVal: [[ {} ]]",BCIval);
+     console->debug("    remember: this is a BINARY CODED INDEX INTEGER");
+     console->debug("    (integer value codes for permutation indices in array)");
+
+     size_t numBits = 0;
+     indexVals.clear();
+
+     // it is VERY EASY to code the bit-shift loop by hand
+     // STD::BITSET in C++11 is very convenient though
+     //   e.g: any , none , all , first , count , addressable , etc
+     // initialize std::bitset with integer value
+     std::bitset< 8 * sizeof(BCIval) > bci_val_bitset( BCIval );
+
+     console->info("*** bitset COUNT   = [[ {} ]]", bci_val_bitset.count() );
+     console->info("*** bitset ULLONG  = [[ {} ]]", bci_val_bitset.to_ullong() );
+     console->info("*** bitset STRING  = [[ {} ]]", bci_val_bitset.to_string() );
+
+   // while there are *ANY* bits set true/1 in the bitset
+   // we search for (or define) any to be LEADING/LSB bits
+   // then we always shift right ...
+   size_t cbit = 0;
+   while ( bci_val_bitset.any() ) {
+     // while the first bit is not set, shift it away - and track it
+     while( !bci_val_bitset.test(0) ) {
+       // shift right - hey bus driver, remove that bit
+       bci_val_bitset >>= 1;
+       ++cbit;
+     }
+     console->debug("*** bitset PUSHING VALUE   = [[ {} ]]", cbit );
+     indexVals.push_back( cbit );
+     ++numBits;
+
+     // REMEMBER TO KEEP ON GOING ON - more bits
+     bci_val_bitset >>= 1;
+     ++cbit;
+   }
+
+
+   // compact way to print vector to stringstream
+   console->info("*** [[ K-PARTIAL-SUMS (decodeBCItoIndexValues) ]] *** DONE");
+   console->info("***    TOTAL Number of Bits Found = [[ {} ]]", numBits );
+     std::ostringstream oss;
+     for( auto idx : indexVals ) { oss << idx << " , "; }
+   console->info("***    ARRAY INDICES FOUND = [[ {} ]]", oss.str() );
+   console->info("*** [[ K-PARTIAL-SUMS (decodeBCItoIndexValues) ]] *** DONE");
+   return( numBits );
+
+   } catch (const spd::spdlog_ex& ex) {
+       std::cout << "*** FATAL( decodeBCItoIndexValues ): SPDLOG Log init failed: "
+                 << ex.what() << std::endl;
+     return(0);
+   }
+}
+‘’’
