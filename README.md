@@ -1,5 +1,21 @@
 # kPartialSums
 
+#### Update(s): Scalability Results (should scale 2**N)
+```
+[2017-08-29 09:47:11.390] [ 16 ] TIME//SCALABILITY BENCHMARK:  0.007663
+[2017-08-29 09:57:51.099] [ 24 ] TIME//SCALABILITY BENCHMARK:  2.26342
+[2017-08-29 10:01:37.997] [ 25 ] TIME//SCALABILITY BENCHMARK:  4.58403
+
+[2017-08-29 10:03:58.328] [ 28 ] ********************************************************************
+[2017-08-29 10:03:58.328] [ 28 ] *** [[ K-PARTIAL-SUMS ( kPartialSums( ) ) ]] *** CORE ALGORITHM
+[2017-08-29 10:03:58.328] [ 28 ] ***    targetSum: [[ 55 ]]
+[2017-08-29 10:03:58.328] [ 28 ] ***    maxNum permutations (!): [[ 268435456 ]]
+[2017-08-29 10:04:39.027] [ 28 ] ***    NUMBER OF MATCHES (targetSum matched in InputArray): [[ 5309 ]]
+[2017-08-29 10:04:39.029] [ 28 ] ********************************************************************
+[2017-08-29 10:04:39.029] [ 28 ] TIME//SCALABILITY BENCHMARK ONLY:  40.6913
+[2017-08-29 10:04:39.029] [ 28 ] ********************************************************************
+```
+
 ## Algorithms to Compute *ALL* K-Partial Sums of a Set
 
 Objective: Write a “function” that returns the set of

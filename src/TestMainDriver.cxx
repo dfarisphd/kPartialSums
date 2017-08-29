@@ -20,6 +20,7 @@ using std::endl;
 
 #include <cmath>
 
+// #include "spdlog.h"
 #include "spdlog/spdlog.h"
 #include <iostream>
 #include <memory>
@@ -90,7 +91,7 @@ kPartialSums (
 
      std::ostringstream oss;
      for( auto aaa : someArray ) { oss << aaa << " , "; }
-     console->info("*** INPUT: [[ {} ]]" , oss.str() );
+     console->debug("*** INPUT: [[ {} ]]" , oss.str() );
 
    // count from 1 (not the zero permutation {0,0,...0})
    // each count represents a series of bits set to "1"
@@ -120,12 +121,12 @@ kPartialSums (
    }
    double unreliable_pseudo_time = ( (double)clock() - start ) / CLOCKS_PER_SEC;
 
-   console->info("*** [[ K-PARTIAL-SUMS ( kPartialSums() ) ]] ***  CORE ALGORITHM DONE");
+   console->debug("*** [[ K-PARTIAL-SUMS ( kPartialSums() ) ]] ***  CORE ALGORITHM DONE");
    console->info("***    NUMBER OF MATCHES (targetSum matched in InputArray): [[ {} ]]" , retNumVals );
      std::ostringstream oohno;
      for( auto aaa : retVals ) { oohno << aaa << " , "; }
-   console->info("***    ALL MATCHES: [[ {} ]]" , oohno.str() );
-   console->info("*** [[ K-PARTIAL-SUMS ( kPartialSums() ) ]] ***  CORE ALGORITHM DONE");
+   console->debug("***    ALL MATCHES: [[ {} ]]" , oohno.str() );
+   console->debug("*** [[ K-PARTIAL-SUMS ( kPartialSums() ) ]] ***  CORE ALGORITHM DONE");
    console->info("********************************************************************");
    console->info("### TIME//SCALABILITY BENCHMARK ONLY:  {} ]]" , unreliable_pseudo_time);
    console->info("********************************************************************");
@@ -169,8 +170,8 @@ decodeBCItoIndexValues ( uint64_t BCIval , std::vector<size_t>& indexVals )
      string str = ss.str();
      auto console = spd::stdout_color_mt( str );
      console->set_level(spd::level::info);
-     console->info("*** [[ K-PARTIAL-SUMS (decodeBCItoIndexValues) ]] ***");
-     console->info("*** bciVal: [[ {} ]]",BCIval);
+     console->debug("*** [[ K-PARTIAL-SUMS (decodeBCItoIndexValues) ]] ***");
+     console->debug("*** bciVal: [[ {} ]]",BCIval);
      console->debug("    remember: this is a BINARY CODED INDEX INTEGER");
      console->debug("    (integer value codes for permutation indices in array)");
 
@@ -183,9 +184,9 @@ decodeBCItoIndexValues ( uint64_t BCIval , std::vector<size_t>& indexVals )
      // initialize std::bitset with integer value
      std::bitset< 8 * sizeof(BCIval) > bci_val_bitset( BCIval );
 
-     console->info("*** bitset COUNT   = [[ {} ]]", bci_val_bitset.count() );
-     console->info("*** bitset ULLONG  = [[ {} ]]", bci_val_bitset.to_ullong() );
-     console->info("*** bitset STRING  = [[ {} ]]", bci_val_bitset.to_string() );
+     console->debug("*** bitset COUNT   = [[ {} ]]", bci_val_bitset.count() );
+     console->debug("*** bitset ULLONG  = [[ {} ]]", bci_val_bitset.to_ullong() );
+     console->debug("*** bitset STRING  = [[ {} ]]", bci_val_bitset.to_string() );
 
    // while there are *ANY* bits set true/1 in the bitset
    // we search for (or define) any to be LEADING/LSB bits
@@ -209,12 +210,12 @@ decodeBCItoIndexValues ( uint64_t BCIval , std::vector<size_t>& indexVals )
 
 
    // compact way to print vector to stringstream
-   console->info("*** [[ K-PARTIAL-SUMS (decodeBCItoIndexValues) ]] *** DONE");
-   console->info("***    TOTAL Number of Bits Found = [[ {} ]]", numBits );
+   console->debug("*** [[ K-PARTIAL-SUMS (decodeBCItoIndexValues) ]] *** DONE");
+   console->debug("***    TOTAL Number of Bits Found = [[ {} ]]", numBits );
      std::ostringstream oss;
      for( auto idx : indexVals ) { oss << idx << " , "; }
-   console->info("***    ARRAY INDICES FOUND = [[ {} ]]", oss.str() );
-   console->info("*** [[ K-PARTIAL-SUMS (decodeBCItoIndexValues) ]] *** DONE");
+   console->debug("***    ARRAY INDICES FOUND = [[ {} ]]", oss.str() );
+   console->debug("*** [[ K-PARTIAL-SUMS (decodeBCItoIndexValues) ]] *** DONE");
    return( numBits );
 
    } catch (const spd::spdlog_ex& ex) {
@@ -234,7 +235,7 @@ main( int argc , char* argv[] ) {
 
      auto console = spd::stdout_color_mt("console");
      spd::set_level(spd::level::info);
-     console->set_level(spd::level::info);
+     console->set_level(spd::level::warn);
      console->info("*** [[ K-PARTIAL-SUMS (TestMainDriver.cxx) ]] ***");
 
      uint64_t numMatches  =  0u;
@@ -255,14 +256,14 @@ main( int argc , char* argv[] ) {
 
      //-------------------------------------------------------------------------
      // CALL K-PARTIAL-SUMS ROUTINE
-     console->info( "CALLING \"kPartialSums\" ROUTINE ..." );
+     console->debug( "CALLING \"kPartialSums\" ROUTINE ..." );
      numMatches  =  kPartialSums( vec , targetSum , retVals );
-     console->info( "NUM-MATCHES -->> [[ {} ]]" , numMatches );
+     console->debug( "NUM-MATCHES -->> [[ {} ]]" , numMatches );
      //-------------------------------------------------------------------------
 
      std::ostringstream rvoss;
      for( auto idx : retVals ) { rvoss << idx << " , "; }
-     console->info("*** EXAMPLE 1  :: RET-VALS = [[ {} ]]" , rvoss.str() );
+     console->debug("*** EXAMPLE 1  :: RET-VALS = [[ {} ]]" , rvoss.str() );
 
      //-------------------------------------------------------------------------
      // PRINT OUT & DEBUG THE BCI-Coded Index Values ...
@@ -274,9 +275,10 @@ main( int argc , char* argv[] ) {
            numIndices = decodeBCItoIndexValues ( bciVal , arrayIndexValues );
                std::ostringstream aioss;
                for( auto aiv : arrayIndexValues ) { aioss << aiv << " , "; }
-               console->info("BCI-VAL = [[ {} ]]  -->>  Array Index Values: [[ {} ]]",bciVal,aioss.str());
+               console->debug("BCI-VAL = [[ {} ]]  -->>  Array Index Values: [[ {} ]]",bciVal,aioss.str());
          }
      }
+
 //==+====1====+====2====+====3====+====4====+====5====+====6====+====7====+====8
 
      numMatches  =  0u;
@@ -291,14 +293,14 @@ main( int argc , char* argv[] ) {
 
      //-------------------------------------------------------------------------
      // CALL K-PARTIAL-SUMS ROUTINE
-     console->info( "CALLING \"kPartialSums\" ROUTINE ..." );
+     console->debug( "CALLING \"kPartialSums\" ROUTINE ..." );
      numMatches  =  kPartialSums( vec2 , targetSum2 , retVals );
-     console->info( "NUM-MATCHES -->> [[ {} ]]" , numMatches );
+     console->debug( "NUM-MATCHES -->> [[ {} ]]" , numMatches );
      //-------------------------------------------------------------------------
 
      std::ostringstream rvoss2;
      for( auto idx : retVals ) { rvoss2 << idx << " , "; }
-     console->info("*** EXAMPLE 2  :: RET-VALS = [[ {} ]]" , rvoss2.str() );
+     console->debug("*** EXAMPLE 2  :: RET-VALS = [[ {} ]]" , rvoss2.str() );
 
      //-------------------------------------------------------------------------
      // PRINT OUT & DEBUG THE BCI-Coded Index Values ...
@@ -310,7 +312,44 @@ main( int argc , char* argv[] ) {
            numIndices = decodeBCItoIndexValues ( bciVal , arrayIndexValues );
                std::ostringstream aioss;
                for( auto aiv : arrayIndexValues ) { aioss << aiv << " , "; }
-               console->info("BCI-VAL = [[ {} ]]  -->>  Array Index Values: [[ {} ]]",bciVal,aioss.str());
+               console->debug("BCI-VAL = [[ {} ]]  -->>  Array Index Values: [[ {} ]]",bciVal,aioss.str());
+         }
+     }
+
+//==+====1====+====2====+====3====+====4====+====5====+====6====+====7====+====8
+
+     numMatches  =  0u;
+     retVals.clear();
+     uint64_t vec3[ 32 ] = {1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul,18ul,19ul,20ul,21ul,22ul,23ul,24ul,25ul,26ul,27ul,28ul,29ul,30ul,31ul,32ul};
+     uint64_t targetSum3 = (uint64_t)255u;
+
+     // compact way to print vector to stringstream
+     std::ostringstream oss3; oss3 << "[[ ";
+     for( auto idx : vec3 ) { oss3 << idx << " , "; } oss3 << "]]";
+     console->debug("*** EXAMPLE 3  :: [[ 1ul - 16ul ]]: {}" , oss3.str() );
+
+     //-------------------------------------------------------------------------
+     // CALL K-PARTIAL-SUMS ROUTINE
+     console->info( "CALLING \"kPartialSums\" ROUTINE ..." );
+     numMatches  =  kPartialSums( vec3 , targetSum3 , retVals );
+     console->info( "NUM-MATCHES -->> [[ {} ]]" , numMatches );
+     //-------------------------------------------------------------------------
+
+     std::ostringstream rvoss3;
+     for( auto idx : retVals ) { rvoss3 << idx << " , "; }
+     console->debug("*** EXAMPLE 3  :: RET-VALS = [[ {} ]]" , rvoss3.str() );
+
+     //-------------------------------------------------------------------------
+     // PRINT OUT & DEBUG THE BCI-Coded Index Values ...
+     console->debug("Printing out BCI Coded Index Values: {} Solutions ...",numMatches);
+     if( numMatches ) {
+         for( auto bciVal : retVals ) {
+           std::vector<size_t> arrayIndexValues(0);
+           size_t numIndices = 0;
+           numIndices = decodeBCItoIndexValues ( bciVal , arrayIndexValues );
+               std::ostringstream aioss;
+               for( auto aiv : arrayIndexValues ) { aioss << aiv << " , "; }
+               console->debug("BCI-VAL = [[ {} ]]  -->>  Array Index Values: [[ {} ]]",bciVal,aioss.str());
          }
      }
 

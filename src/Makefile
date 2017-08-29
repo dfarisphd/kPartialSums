@@ -1,6 +1,6 @@
 ## in general, relative paths make me queasy
 PWD_DIR:=$(shell pwd)
-SPDLOG_INCLUDES:=$(PWD_DIR)/../lib/spdlog-v0.14.0/include/
+SPDLOG_INCLUDES:=$(PWD_DIR)/../include/spdlog
 
 CPP_FLAGS:=-I. -I$(SPDLOG_INCLUDES)
 
