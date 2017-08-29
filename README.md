@@ -24,7 +24,9 @@ Therefore, we can perform the summation of the candidate sequence in any order
 as they are all the same (provided again that some arbitrary object types
 supporting operator+ implement addition that agrees with  
 
-## SOLUTIONS:
+
+## SOLUTIONS:  Example 1
+
 
 ```
 ## EXAMPLE 1:
@@ -48,6 +50,40 @@ SOLUTIONS:
 [2017-08-29 08:20:22.465] [console] [info] BCI-VAL = [[  9 ]]  -->>  Array Index Values: [[ 0 , 3 ]]
 [2017-08-29 08:20:22.465] [console] [info] BCI-VAL = [[ 10 ]]  -->>  Array Index Values: [[ 1 , 3 ]]
 ```
+
+## SOLUTIONS: Example 2
+
+```
+[2017-08-29 08:43:23.370] [console5] [info] ********************************************************************
+[2017-08-29 08:43:23.370] [console5] [info] *** [[ K-PARTIAL-SUMS ( kPartialSums( ) ) ]] *** CORE ALGORITHM
+[2017-08-29 08:43:23.370] [console5] [info] *** INPUT: [[ 1 , 2 , 3 , 4 ]]
+[2017-08-29 08:43:23.370] [console5] [info] ***    targetSum: [[ 6 ]]
+[2017-08-29 08:43:23.370] [console5] [info] ***    maxNum permutations (!): [[ 16 ]]
+[2017-08-29 08:43:23.370] [console5] [info] ***    NUMBER OF MATCHES (targetSum matched in InputArray): [[ 2 ]]
+[2017-08-29 08:43:23.370] [console5] [info] ***    ALL MATCHES: [[ 7 , 10 ]]
+[2017-08-29 08:43:23.370] [console5] [info] *** [[ K-PARTIAL-SUMS ( kPartialSums() ) ]] ***  CORE ALGORITHM DONE
+[2017-08-29 08:43:23.370] [console5] [info] ********************************************************************
+[2017-08-29 08:43:23.370] [console5] [info] ### TIME//SCALABILITY BENCHMARK ONLY:  2e-06 ]]
+[2017-08-29 08:43:23.370] [console5] [info] ********************************************************************
+[2017-08-29 08:43:23.370] [console6] [info] *** [[ K-PARTIAL-SUMS (decodeBCItoIndexValues) ]] ***
+[2017-08-29 08:43:23.370] [console6] [info] *** bciVal: [[ 7 ]]
+[2017-08-29 08:43:23.370] [console6] [info] *** bitset COUNT   = [[ 3 ]]
+[2017-08-29 08:43:23.370] [console6] [info] *** bitset ULLONG  = [[ 7 ]]
+[2017-08-29 08:43:23.370] [console6] [info] *** bitset STRING  = [[ 0000000000000000000000000000000000000000000000000000000000000111 ]]
+[2017-08-29 08:43:23.370] [console6] [info] ***    TOTAL Number of Bits Found = [[ 3 ]]
+[2017-08-29 08:43:23.370] [console6] [info] ***    ARRAY INDICES FOUND = [[ 0 , 1 , 2 ]]
+[2017-08-29 08:43:23.370] [console5] [info] ********************************************************************
+[2017-08-29 08:43:23.370] [console7] [info] *** [[ K-PARTIAL-SUMS (decodeBCItoIndexValues) ]] ***
+[2017-08-29 08:43:23.370] [console7] [info] *** bciVal: [[ 10 ]]
+[2017-08-29 08:43:23.370] [console7] [info] *** bitset COUNT   = [[ 2 ]]
+[2017-08-29 08:43:23.370] [console7] [info] *** bitset ULLONG  = [[ 10 ]]
+[2017-08-29 08:43:23.370] [console7] [info] *** bitset STRING  = [[ 0000000000000000000000000000000000000000000000000000000000001010 ]]
+[2017-08-29 08:43:23.370] [console7] [info] *** [[ K-PARTIAL-SUMS (decodeBCItoIndexValues) ]] *** DONE
+[2017-08-29 08:43:23.370] [console7] [info] ***    TOTAL Number of Bits Found = [[ 2 ]]
+[2017-08-29 08:43:23.370] [console7] [info] ***    ARRAY INDICES FOUND = [[ 1 , 3 ]]
+[2017-08-29 08:43:23.370] [console5] [info] ********************************************************************
+```
+
 
 ### Basic Breakfast Serial Algorithm
 
