@@ -1,9 +1,18 @@
 # kPartialSums
 
-Algorithms to Compute *ALL* K-Partial Sums of a Set
-===================================================
+## Algorithms to Compute *ALL* K-Partial Sums of a Set
 
-Objective: Write a “function” that returns the set of combinations (or more probably: the set of permutations) to the K-Partial-Sum problem: All k-length permutations of the input “multiset” which sum to a target value.
+Objective: Write a “function” that returns the set of
+combinations to the K-Partial-Sum Problem: All k-length
+combinations of the input "multi-set" (since we allow
+repeated elements in the set) which SUM to the given
+targetSum value.i
+
+Rather than "combinations" it is more likely: the set
+of permutations; combinations typically allow repeats
+AABC (for {A,B,C}) of the same element - which if negative
+and "zero" elements are allowed for the K-Partial Sum,
+the problem becomes indeterminant.
 
 * Addition is Commutative - which states that A + B = B + A
 or should be for arbitrary object types that
