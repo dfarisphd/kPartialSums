@@ -8,21 +8,24 @@ INCLUDES:=\
    KPartialSums.h
 
 OBJS:=\
-   KPartialSums.o\
-   TestMainDriver1.o
+   KPartialSums.o
 
 PROJ_HOME:=$(shell pwd)
 INCLUDE_DIR:=$(PROJ_HOME)/include
 SRC_DIR:=$(PROJ_HOME)/src
 BUILD_DIR:=$(PROJ_HOME)/build
-LIB_DIR:=$(PROJ_HOME)/lib
 
-CXX := /usr/bin/g++
-CPPFLAGS := -I$(INCLUDE_DIR)
-CXXFLAGS := -Wall -Wextra -Wno-unused-parameter -pedantic -std=c++11 -O0
+## LIB_DIR:=$(PROJ_HOME)/lib
+LIB_DIR:=
 
-LD_FLAGS := -Wall -Wextra -pedantic -std=c++11 -O0 -L$(LIB_DIR)
+CXX:=/usr/bin/g++
+CPPFLAGS:=-I$(INCLUDE_DIR)
+CXXFLAGS:=-Wall -Wextra -Wno-unused-parameter -Wno-unused-variable -pedantic -std=c++11 -O0 -ggdb
+
+
+## LD_FLAGS := -Wall -Wextra -pedantic -std=c++11 -O0 -L$(LIB_DIR)
 ## LD_LIBS := -lm -lgtest
+LD_FLAGS:=-Wall -Wextra -pedantic -std=c++11 -O0
 LD_LIBS:=
 
 RMF_BIN:=/bin/rm -f
@@ -36,8 +39,8 @@ KPartialSums.o: KPartialSums.h KPartialSums.cxx
 $(PROG).o: $(INCLUDES) $(SOURCES)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c -o $(PROG).o $(PROG).cxx
 
-$(PROG): $(OBJS)
-	$(CXX) $(LD_FLAGS) -o $(PROG) $(PROG).o $(OBJS) $(LD_LIBS)
+$(PROG): $(OBJS) fubar.o
+	$(CXX) $(LD_FLAGS) -o $(PROG) $(PROG).o $(OBJS) fubar.o $(LD_LIBS)
 
 
 .PHONY: clean
@@ -46,3 +49,6 @@ clean:
 
 clobber: clean
 	$(RMF_BIN) $(PROG)
+
+fubar.o: fubar.cxx
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c -o fubar.o fubar.cxx

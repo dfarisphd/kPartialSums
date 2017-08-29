@@ -1,6 +1,7 @@
 #include <cstdint>
 #include <cstdlib>
 #include <cstddef>
+#include <cassert>
 
 #include <iostream>
 using std::cout;
@@ -10,6 +11,8 @@ using std::endl;
 using std::vector;
 
 #include "KPartialSums.h"
+
+uint64_t kPartialSums4 ( int *someArray , int targetSum );
 
 template< typename T , size_t N , typename S >
 uint64_t
@@ -46,8 +49,12 @@ main( int argc , char* argv[] ) {
    std::vector<uint64_t> retVals;
    uint64_t fubar[ 4 ] = { 5ul , 5ul , 15ul , 10ul };
 
-   numMatches  =  kPartialSums2( fubar , 15ul , retVals );
-   cout << "EXAMPLE 1:  numMatches = [[ " << numMatches << " ]]" << endl;
+   // numMatches  =  kPartialSums2( fubar , 15ul , retVals );
+   // cout << "EXAMPLE 1:  numMatches = [[ " << numMatches << " ]]" << endl;
+
+   int fubar4[ 4 ] = { 5 , 5 , 15 , 10 };
+   numMatches  =  kPartialSums4( fubar4 , 15ul );
+   cout << "EXAMPLE 1 (fubared):  numMatches = [[ " << numMatches << " ]]" << endl;
 
 //kPartialSums (
 //   const T (&someArray)[N] ,

@@ -168,9 +168,15 @@ kPartialSums (
    for( uint64_t idx = 1u ; idx < maxNum ; ++idx ) {
      T sumTval = 0;
      for( size_t arrayIdx = 0 ; arrayIdx < N ; ++arrayIdx ) {
-		 if( idx & (1 << arrayIdx) ) {  sumTval += someArray[ arrayIdx ]; }
-	 }
-	 if( sumTval == targetSum ) { retVals.push_back( idx ); }
+        if( idx & (1 << arrayIdx) ) {
+            sumTval += someArray[ arrayIdx ];
+        }
+     }
+     if( sumTval == targetSum )
+     {
+         retVals.push_back( idx );
+         ++retNumVals;
+     }
    }
    return( retNumVals );
 }

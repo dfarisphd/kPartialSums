@@ -1,5 +1,3 @@
-123456789
-
 ###############################################################################
 # Set default behavior to automatically normalize line endings.
 ###############################################################################
@@ -7,6 +5,14 @@
 ## GITHUB SUPPLIED GIT IGNORE FILE ...
 ## this git ignore file is supplied by github upon
 ## project creation (with a few minor selections and tweaks)
+
+## MAC OS X GARBAGE ...
+.DS_Store
+.Trash
+
+## GOOGLE TEST ARTIFACTS//Executables
+*_unittest
+*Driver
 
 # Prerequisites
 *.d

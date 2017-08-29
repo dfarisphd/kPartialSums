@@ -1,0 +1,75 @@
+PROG:=TestMainDriver
+
+PROJ_HOME:=$(shell pwd)
+SRC_DIR:=$(PROJ_HOME)/src
+INCLUDE_DIR:=$(PROJ_HOME)/include
+BUILD_DIR:=$(PROJ_HOME)/build
+DIST_DIR:=$(PROJ_HOME)/dist
+## LIB_DIR:=$(PROJ_HOME)/lib
+LIB_DIR:=.
+
+PROG_OUT:=$(BUILD_DIR)/$(PROG)
+_PROG:=$(DIST_DIR)/$(PROG)
+
+SOURCES:=\
+   KPartialSums.cxx\
+   TestMainDriver.cxx
+
+INCLUDES:=\
+   KPartialSums.h
+
+OBJS:=\
+   KPartialSums.o
+
+## foo bar for now ...
+## _OBJS = a_chsrc.o a_csv.o a_enc.o a_env.o a_except.o \
+## a_date.o a_range.o a_opsys.o
+## _OBJS  := $(patsubst %,$(ODIR)/%,$(OBJS))
+## _SRCS  := $(patsubst %,$(SDIR)/%,$(SOURCES))
+## _INCS  := $(patsubst %,$(IDIR)/%,$(INCLUDES))
+## _PROG  := $(patsubst %,$(ODIR)/%,$(PROG))
+
+CXX:=/usr/bin/g++
+CPPFLAGS:=-I$(INCLUDE_DIR)
+CXXFLAGS:=-Wall -Wextra -Wno-unused-parameter -Wno-unused-variable -pedantic -std=c++11 -O0 -ggdb
+
+## LD_FLAGS := -Wall -Wextra -pedantic -std=c++11 -O0 -L$(LIB_DIR)
+## LD_LIBS := -lm -lgtest
+LD_FLAGS:=-Wall -Wextra -pedantic -std=c++11 -O0
+LD_LIBS:=
+
+RMF_BIN:=/bin/rm -f
+RMFR_BIN:=/bin/rm -fr
+MKDIR_BIN:=/bin/mkdir -p
+
+all: $(PROG)
+
+KPartialSums.o: KPartialSums.h KPartialSums.cxx
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c -o KPartialSums.o KPartialSums.cxx
+
+$(PROG).o: $(SOURCES) $(INCLUDES)
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c -o $(PROG).o $(PROG).cxx
+
+$(PROG): $(PROG).o $(OBJS)
+	$(CXX) $(LD_FLAGS) -v -L$(LIB_DIR) -o $(PROG) $(PROG).o $(OBJS) $(LD_LIBS)
+
+
+## foo bar for now ...
+##  $(ODIR)/$(PROG).o: $(SDIR)/%.cxx $(IDIR)/%.h
+## 	$(CXX) $(CPPFLAGS) -c $(INC) -o $@ $< $(CXXFLAGS)
+## 
+## $(ODIR)/%.o: $(SDIR)/%.cxx $(IDIR)/%.h
+## 	$(CXX) $(CPPFLAGS) -c $(INC) -o $@ $< $(CXXFLAGS)
+## 
+## ## ar rvs $(OUT) $^
+## $(PROG_OUT): $(_OBJS)
+## 	$(CXX) $(LD_FLAGS) -o $(PROG_OUT) $(_OBJS) $(LD_LIBS)
+
+
+.PHONY: clean
+clean:
+	$(RMF_BIN) $(OBJS) $(PROG).o
+
+.PHONY: clobber
+clobber: clean
+	$(RMF_BIN) $(PROG)
